@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.authors       = ["Ryo Chikazawa"]
   gem.email         = ["chikathreesix@gmail.com"]
   gem.summary       = %q{Deploy Jekyll sites to Github Pages easily}
-  gem.description   = %q{Deploy Jekyll sites to Github Pages easily}
+  gem.description   = %q{Inspired by middleman-gh-pages, Jekyll Github Pages helps deploying Jekyll site to github gh-pages branch. However Github Pages basically supports Jekyll, they have a lot of restrictions. So you might want to use github pages just as a host for static pages. This gem provides rake tasks that automate the process of deploying a Jekyll site to Github Pages.}
   gem.homepage      = "https://github.com/chikathreesix/jekyll-gh-pages"
   gem.license       = 'MIT'
 

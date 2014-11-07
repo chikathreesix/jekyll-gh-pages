@@ -1,10 +1,11 @@
 require 'fileutils'
 
 remote_name = ENV.fetch("REMOTE_NAME", "origin")
+branch_name = ENV.fetch("BRANCH_NAME", "gh-pages")
 
 PROJECT_ROOT = `git rev-parse --show-toplevel`.strip
 BUILD_DIR    = File.join(PROJECT_ROOT, "build")
-GH_PAGES_REF = File.join(BUILD_DIR, ".git/refs/remotes/#{remote_name}/gh-pages")
+GH_PAGES_REF = File.join(BUILD_DIR, ".git/refs/remotes/#{remote_name}/#{branch_name}")
 
 directory BUILD_DIR
 
@@ -20,14 +21,14 @@ file GH_PAGES_REF => BUILD_DIR do
     sh "git remote add #{remote_name} #{repo_url}"
     sh "git fetch #{remote_name}"
 
-    if `git branch -r` =~ /gh-pages/
-      sh "git checkout gh-pages"
+    if `git branch -r` =~ /#{branch_name}/
+      sh "git checkout #{branch_name}"
     else
-      sh "git checkout --orphan gh-pages"
+      sh "git checkout --orphan #{branch_name}"
       sh "touch index.html"
       sh "git add ."
-      sh "git commit -m 'initial gh-pages commit'"
-      sh "git push #{remote_name} gh-pages"
+      sh "git commit -m 'initial #{branch_name} commit'"
+      sh "git push #{remote_name} #{branch_name}"
     end
   end
 end
@@ -68,6 +69,6 @@ task :deploy => [:build] do
     else
       sh "git commit -m \"#{message}\""
     end
-    sh "git push #{remote_name} gh-pages"
+    sh "git push #{remote_name} #{branch_name}"
   end
 end
